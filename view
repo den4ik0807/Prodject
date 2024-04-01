@@ -1,0 +1,88 @@
+import flet as ft
+
+b=[]
+new_task=[]
+
+def main(page: ft.Page):
+    global b
+    global new_task
+    def add_clicked(e):
+        new_task.value = new_task.value.split("\n")
+        if len(new_task.value)==2:
+            matrixs=[]
+            for i in range(2):
+                matrixs.append([])
+                if "x" not in new_task.value[i]:
+                    matrixs[i].append(0)
+                else:
+                    matrixs[i].append(new_task.value[i][:new_task.value[i].index("x")])
+                    if matrixs[i][-1] == "":
+                        matrixs[i][-1] = 1
+                if "y" not in new_task.value[i]:
+                    matrixs[i].append(0)
+                else:
+                    matrixs[i].append(new_task.value[i][new_task.value[i].index("x"):new_task.value[i].index("y")])
+                    if matrixs[i][-1] == "-":
+                        matrixs[i][-1]= -1
+                    elif matrixs[i][-1] == "+":
+                        matrixs[i][-1] = 1
+                    elif "+" in matrixs[i][-1]:
+                        matrixs[i][-1] = matrixs[i][-1][1:]
+                matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
+                if "\r" in matrixs[i][-1]:
+                    matrixs[i][-1] = matrixs[i][-1][:-1]
+            for i in range(2):
+                page.add(ft.Text(matrixs[i]))
+        else:
+            matrixs = []
+            for i in range(3):
+                matrixs.append([])
+                if "x" not in new_task.value[i]:
+                    matrixs[i].append(0)
+                else:
+                    matrixs[i].append(new_task.value[i][:new_task.value[i].index("x")])
+                    if matrixs[i][-1] == "":
+                        matrixs[i][-1] = 1
+                if "y" not in new_task.value[i]:
+                    matrixs[i].append(0)
+                else:
+                    matrixs[i].append(new_task.value[i][new_task.value[i].index("x")+1:new_task.value[i].index("y")])
+                    if matrixs[i][-1] == "-":
+                        matrixs[i][-1]= -1
+                    elif matrixs[i][-1] == "+":
+                        matrixs[i][-1]= 1
+                    elif "+" in matrixs[i][-1]:
+                        matrixs[i][-1] = matrixs[i][-1][1:]
+                if "z" not in new_task.value[i]:
+                    matrixs[i].append(0)
+                else:
+                    matrixs[i].append(new_task.value[i][new_task.value[i].index("y")+1:new_task.value[i].index("z")])
+                    if matrixs[i][-1] == "-":
+                        matrixs[i][-1] = -1
+                    elif matrixs[i][-1] == "+":
+                        matrixs[i][-1] = 1
+                    elif "+" in matrixs[i][-1]:
+                        matrixs[i][-1] = matrixs[i][-1][1:]
+                matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
+                if "\r" in matrixs[i][-1]:
+                    matrixs[i][-1] = matrixs[i][-1][:-1]
+            for i in range(3):
+                page.add(ft.Text(matrixs[i]))
+        new_task.value = ""
+        new_task.focus()
+        new_task.update()
+
+    new_task = ft.TextField( label="Auto adjusted height with max lines", multiline = True, min_lines = 1, max_lines = 3)
+    page.add(ft.Row([new_task, ft.ElevatedButton("Add", on_click=add_clicked)]))
+
+def apper(a):
+    global b
+    b = a
+    ft.app(target=main)
+
+apper(1)
+
+
+# 5x-y-z=0
+# x+2y+3z=14
+# 4x+3y+2z=16
