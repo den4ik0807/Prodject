@@ -31,8 +31,47 @@ def main(page: ft.Page):
                 matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
                 if "\r" in matrixs[i][-1]:
                     matrixs[i][-1] = matrixs[i][-1][:-1]
+            matrixs2 = matrixs
+            for i in matrixs:
+                for ii in i:
+                    matrixs2[matrixs.index(i)][i.index(ii)] = ii
+            matrixs = matrixs2
             for i in range(2):
-                page.add(ft.Text(matrixs[i]))
+                page.add(ft.Text('\n'.join('\t'.join(map(str, row)) for row in matrixs)))
+                matrixs2 = matrixs
+                for i in matrixs:
+                    for ii in i:
+                        matrixs2[matrixs.index(i)][i.index(ii)] = ii
+                print(matrixs2)
+                matrixs = matrixs2
+                delta = (matrixs[0][0] * matrixs[1][1] * matrixs[2][2]) + (
+                            matrixs[0][1] * matrixs[1][2] * matrixs[2][0]) + (
+                                    matrixs[0][2] * matrixs[1][0] * matrixs[2][1]) - (
+                                    matrixs[0][2] * matrixs[1][1] * matrixs[2][0]) - (
+                                    matrixs[0][1] * matrixs[1][0] * matrixs[2][2]) - (
+                                    matrixs[0][0] * matrixs[1][2] * matrixs[2][1])
+                matrixsx = matrixs
+                for i in range(3):
+                    matrixsx[i][0] = matrixs[i][3]
+                deltax = (matrixsx[0][0] * matrixsx[1][1] * matrixsx[2][2]) + (
+                        matrixsx[0][1] * matrixsx[1][2] * matrixsx[2][0]) + (
+                                 matrixsx[0][2] * matrixsx[1][0] * matrixsx[2][1]) - (
+                                 matrixsx[0][2] * matrixsx[1][1] * matrixsx[2][0]) - (
+                                 matrixsx[0][1] * matrixsx[1][0] * matrixsx[2][2]) - (
+                                 matrixsx[0][0] * matrixsx[1][2] * matrixsx[2][1])
+                matrixsy = matrixs
+                for i in range(3):
+                    matrixsy[i][1] = matrixs[i][3]
+                deltay = (matrixsy[0][0] * matrixsy[1][1] * matrixsy[2][2]) + (
+                        matrixsy[0][1] * matrixsy[1][2] * matrixsy[2][0]) + (
+                                 matrixsy[0][2] * matrixsy[1][0] * matrixsy[2][1]) - (
+                                 matrixsy[0][2] * matrixsy[1][1] * matrixsy[2][0]) - (
+                                 matrixsy[0][1] * matrixsy[1][0] * matrixsy[2][2]) - (
+                                 matrixsy[0][0] * matrixsy[1][2] * matrixsy[2][1])
+                print(delta)
+                print(deltax)
+                print(deltay)
+                page.add(ft.Text(f"Δ={delta}\nΔx={deltax}\nΔy={deltay}\nx={deltax / delta}\ny={deltay / delta}"))
         else:
             matrixs = []
             for i in range(3):
@@ -66,13 +105,62 @@ def main(page: ft.Page):
                 matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
                 if "\r" in matrixs[i][-1]:
                     matrixs[i][-1] = matrixs[i][-1][:-1]
+            matrixs2 = matrixs
+            for i in matrixs:
+                for ii in i:
+                    matrixs2[matrixs.index(i)][i.index(ii)] = int(ii)
+            matrixs = matrixs2
+            page.add(ft.Text('\n'.join('\t'.join(map(str, row)) for row in matrixs)))
+            matrixs2 = matrixs
+            for i in matrixs:
+                for ii in i:
+                    matrixs2[matrixs.index(i)][i.index(ii)] = ii
+            print(matrixs2)
+            matrixs = matrixs2
+            delta = (matrixs[0][0] * matrixs[1][1] * matrixs[2][2]) + (
+                        matrixs[0][1] * matrixs[1][2] * matrixs[2][0]) + (
+                                matrixs[0][2] * matrixs[1][0] * matrixs[2][1]) - (
+                                matrixs[0][2] * matrixs[1][1] * matrixs[2][0]) - (
+                                matrixs[0][1] * matrixs[1][0] * matrixs[2][2]) - (
+                                matrixs[0][0] * matrixs[1][2] * matrixs[2][1])
+            matrixsx = matrixs
             for i in range(3):
-                page.add(ft.Text(matrixs[i]))
+                matrixsx[i][0] = matrixs[i][3]
+            deltax = (matrixsx[0][0] * matrixsx[1][1] * matrixsx[2][2]) + (
+                        matrixsx[0][1] * matrixsx[1][2] * matrixsx[2][0]) + (
+                                 matrixsx[0][2] * matrixsx[1][0] * matrixsx[2][1]) - (
+                                 matrixsx[0][2] * matrixsx[1][1] * matrixsx[2][0]) - (
+                                 matrixsx[0][1] * matrixsx[1][0] * matrixsx[2][2]) - (
+                                 matrixsx[0][0] * matrixsx[1][2] * matrixsx[2][1])
+            matrixsy = matrixs
+            for i in range(3):
+                matrixsy[i][1] = matrixs[i][3]
+            deltay = (matrixsy[0][0] * matrixsy[1][1] * matrixsy[2][2]) + (
+                        matrixsy[0][1] * matrixsy[1][2] * matrixsy[2][0]) + (
+                                 matrixsy[0][2] * matrixsy[1][0] * matrixsy[2][1]) - (
+                                 matrixsy[0][2] * matrixsy[1][1] * matrixsy[2][0]) - (
+                                 matrixsy[0][1] * matrixsy[1][0] * matrixsy[2][2]) - (
+                                 matrixsy[0][0] * matrixsy[1][2] * matrixsy[2][1])
+            matrixsz = matrixs
+            for i in range(3):
+                matrixsz[i][2] = matrixs[i][3]
+            deltaz = (matrixsz[0][0] * matrixsz[1][1] * matrixsz[2][2]) + (
+                        matrixsz[0][1] * matrixsz[1][2] * matrixsz[2][0]) + (
+                             matrixsz[0][2] * matrixsz[1][0] * matrixsz[2][1]) - (
+                                 matrixsz[0][2] * matrixsz[1][1] * matrixsz[2][0]) - (
+                             matrixsz[0][1] * matrixsz[1][0] * matrixsz[2][2]) - (
+                             matrixsz[0][0] * matrixsz[1][2] * matrixsz[2][1])
+            print(delta)
+            print(deltax)
+            print(deltay)
+            print(deltaz)
+            page.add(ft.Text(f"Δ={delta}\nΔx={deltax}\nΔy={deltay}\nΔx={deltaz}\nx={deltax/delta}\ny={deltay/delta}\nz={deltaz/delta}"))
+            matrixs = []
         new_task.value = ""
         new_task.focus()
         new_task.update()
 
-    new_task = ft.TextField( label="Auto adjusted height with max lines", multiline = True, min_lines = 1, max_lines = 3)
+    new_task = ft.TextField(label="Введите сюда систему:", multiline = True, min_lines = 1, max_lines = 3)
     page.add(ft.Row([new_task, ft.ElevatedButton("Add", on_click=add_clicked)]))
 
 def apper(a):
@@ -86,3 +174,7 @@ apper(1)
 # 5x-y-z=0
 # x+2y+3z=14
 # 4x+3y+2z=16
+
+# 3x-2y+4z=21
+# 3x+4y-2z=9
+# 2x-y-z=1
