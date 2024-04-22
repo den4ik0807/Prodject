@@ -3,178 +3,256 @@ import flet as ft
 b=[]
 new_task=[]
 
-def main(page: ft.Page):
-    global b
-    global new_task
-    def add_clicked(e):
-        new_task.value = new_task.value.split("\n")
-        if len(new_task.value)==2:
-            matrixs=[]
-            for i in range(2):
-                matrixs.append([])
-                if "x" not in new_task.value[i]:
-                    matrixs[i].append(0)
-                else:
-                    matrixs[i].append(new_task.value[i][:new_task.value[i].index("x")])
-                    if matrixs[i][-1] == "":
-                        matrixs[i][-1] = 1
-                if "y" not in new_task.value[i]:
-                    matrixs[i].append(0)
-                else:
-                    matrixs[i].append(new_task.value[i][new_task.value[i].index("x"):new_task.value[i].index("y")])
-                    if matrixs[i][-1] == "-":
-                        matrixs[i][-1]= -1
-                    elif matrixs[i][-1] == "+":
-                        matrixs[i][-1] = 1
-                    elif "+" in matrixs[i][-1]:
-                        matrixs[i][-1] = matrixs[i][-1][1:]
-                matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
-                if "\r" in matrixs[i][-1]:
-                    matrixs[i][-1] = matrixs[i][-1][:-1]
-            matrixs2 = matrixs
-            for i in matrixs:
-                for ii in i:
-                    matrixs2[matrixs.index(i)][i.index(ii)] = ii
-            matrixs = matrixs2
-            for i in range(2):
-                page.add(ft.Text('\n'.join('\t'.join(map(str, row)) for row in matrixs)))
-                matrixs2 = matrixs
-                for i in matrixs:
-                    for ii in i:
-                        matrixs2[matrixs.index(i)][i.index(ii)] = ii
-                print(matrixs2)
-                matrixs = matrixs2
-                delta = (matrixs[0][0] * matrixs[1][1] * matrixs[2][2]) + (
-                            matrixs[0][1] * matrixs[1][2] * matrixs[2][0]) + (
-                                    matrixs[0][2] * matrixs[1][0] * matrixs[2][1]) - (
-                                    matrixs[0][2] * matrixs[1][1] * matrixs[2][0]) - (
-                                    matrixs[0][1] * matrixs[1][0] * matrixs[2][2]) - (
-                                    matrixs[0][0] * matrixs[1][2] * matrixs[2][1])
-                matrixsx = matrixs
-                for i in range(3):
-                    matrixsx[i][0] = matrixs[i][3]
-                deltax = (matrixsx[0][0] * matrixsx[1][1] * matrixsx[2][2]) + (
-                        matrixsx[0][1] * matrixsx[1][2] * matrixsx[2][0]) + (
-                                 matrixsx[0][2] * matrixsx[1][0] * matrixsx[2][1]) - (
-                                 matrixsx[0][2] * matrixsx[1][1] * matrixsx[2][0]) - (
-                                 matrixsx[0][1] * matrixsx[1][0] * matrixsx[2][2]) - (
-                                 matrixsx[0][0] * matrixsx[1][2] * matrixsx[2][1])
-                matrixsy = matrixs
-                for i in range(3):
-                    matrixsy[i][1] = matrixs[i][3]
-                deltay = (matrixsy[0][0] * matrixsy[1][1] * matrixsy[2][2]) + (
-                        matrixsy[0][1] * matrixsy[1][2] * matrixsy[2][0]) + (
-                                 matrixsy[0][2] * matrixsy[1][0] * matrixsy[2][1]) - (
-                                 matrixsy[0][2] * matrixsy[1][1] * matrixsy[2][0]) - (
-                                 matrixsy[0][1] * matrixsy[1][0] * matrixsy[2][2]) - (
-                                 matrixsy[0][0] * matrixsy[1][2] * matrixsy[2][1])
-                print(delta)
-                print(deltax)
-                print(deltay)
-                page.add(ft.Text(f"Δ={delta}\nΔx={deltax}\nΔy={deltay}\nx={deltax / delta}\ny={deltay / delta}"))
+def matrix_2(sistema):
+    matrix = []
+    for i in range(2):
+        matrix.append([])
+        if "x" not in sistema[i]:
+            matrix[i].append(0)
         else:
-            matrixs = []
-            for i in range(3):
-                matrixs.append([])
-                if "x" not in new_task.value[i]:
-                    matrixs[i].append(0)
+            if sistema[i].index("x") < sistema[i].index("y"):
+                a = sistema[i][:sistema[i].index("x")]
+                if a == "":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
                 else:
-                    matrixs[i].append(new_task.value[i][:new_task.value[i].index("x")])
-                    if matrixs[i][-1] == "":
-                        matrixs[i][-1] = 1
-                if "y" not in new_task.value[i]:
-                    matrixs[i].append(0)
+                    matrix[i].append(int(a))
+            else:
+                a = sistema[i][sistema[i].index("y")+1:sistema[i].index("x")]
+                if a == "+":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
                 else:
-                    matrixs[i].append(new_task.value[i][new_task.value[i].index("x")+1:new_task.value[i].index("y")])
-                    if matrixs[i][-1] == "-":
-                        matrixs[i][-1]= -1
-                    elif matrixs[i][-1] == "+":
-                        matrixs[i][-1]= 1
-                    elif "+" in matrixs[i][-1]:
-                        matrixs[i][-1] = matrixs[i][-1][1:]
-                if "z" not in new_task.value[i]:
-                    matrixs[i].append(0)
+                    if a != "+" and "+" in a:
+                        matrix[i].append(int(a[1:]))
+                    elif a != "-" and "-" in a:
+                        matrix[i].append(int(a))
+        if "y" not in sistema[i]:
+            matrix[i].append(0)
+        else:
+            if sistema[i].index("y") < sistema[i].index("x"):
+                a = sistema[i][:sistema[i].index("y")]
+                if a == "":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
                 else:
-                    matrixs[i].append(new_task.value[i][new_task.value[i].index("y")+1:new_task.value[i].index("z")])
-                    if matrixs[i][-1] == "-":
-                        matrixs[i][-1] = -1
-                    elif matrixs[i][-1] == "+":
-                        matrixs[i][-1] = 1
-                    elif "+" in matrixs[i][-1]:
-                        matrixs[i][-1] = matrixs[i][-1][1:]
-                matrixs[i].append(new_task.value[i][new_task.value[i].index("=")+1:])
-                if "\r" in matrixs[i][-1]:
-                    matrixs[i][-1] = matrixs[i][-1][:-1]
-            matrixs2 = matrixs
-            for i in matrixs:
-                for ii in i:
-                    matrixs2[matrixs.index(i)][i.index(ii)] = int(ii)
-            matrixs = matrixs2
-            page.add(ft.Text('\n'.join('\t'.join(map(str, row)) for row in matrixs)))
-            matrixs2 = matrixs
-            for i in matrixs:
-                for ii in i:
-                    matrixs2[matrixs.index(i)][i.index(ii)] = ii
-            print(matrixs2)
-            matrixs = matrixs2
-            delta = (matrixs[0][0] * matrixs[1][1] * matrixs[2][2]) + (
-                        matrixs[0][1] * matrixs[1][2] * matrixs[2][0]) + (
-                                matrixs[0][2] * matrixs[1][0] * matrixs[2][1]) - (
-                                matrixs[0][2] * matrixs[1][1] * matrixs[2][0]) - (
-                                matrixs[0][1] * matrixs[1][0] * matrixs[2][2]) - (
-                                matrixs[0][0] * matrixs[1][2] * matrixs[2][1])
-            matrixsx = matrixs
-            for i in range(3):
-                matrixsx[i][0] = matrixs[i][3]
-            deltax = (matrixsx[0][0] * matrixsx[1][1] * matrixsx[2][2]) + (
-                        matrixsx[0][1] * matrixsx[1][2] * matrixsx[2][0]) + (
-                                 matrixsx[0][2] * matrixsx[1][0] * matrixsx[2][1]) - (
-                                 matrixsx[0][2] * matrixsx[1][1] * matrixsx[2][0]) - (
-                                 matrixsx[0][1] * matrixsx[1][0] * matrixsx[2][2]) - (
-                                 matrixsx[0][0] * matrixsx[1][2] * matrixsx[2][1])
-            matrixsy = matrixs
-            for i in range(3):
-                matrixsy[i][1] = matrixs[i][3]
-            deltay = (matrixsy[0][0] * matrixsy[1][1] * matrixsy[2][2]) + (
-                        matrixsy[0][1] * matrixsy[1][2] * matrixsy[2][0]) + (
-                                 matrixsy[0][2] * matrixsy[1][0] * matrixsy[2][1]) - (
-                                 matrixsy[0][2] * matrixsy[1][1] * matrixsy[2][0]) - (
-                                 matrixsy[0][1] * matrixsy[1][0] * matrixsy[2][2]) - (
-                                 matrixsy[0][0] * matrixsy[1][2] * matrixsy[2][1])
-            matrixsz = matrixs
-            for i in range(3):
-                matrixsz[i][2] = matrixs[i][3]
-            deltaz = (matrixsz[0][0] * matrixsz[1][1] * matrixsz[2][2]) + (
-                        matrixsz[0][1] * matrixsz[1][2] * matrixsz[2][0]) + (
-                             matrixsz[0][2] * matrixsz[1][0] * matrixsz[2][1]) - (
-                                 matrixsz[0][2] * matrixsz[1][1] * matrixsz[2][0]) - (
-                             matrixsz[0][1] * matrixsz[1][0] * matrixsz[2][2]) - (
-                             matrixsz[0][0] * matrixsz[1][2] * matrixsz[2][1])
-            print(delta)
-            print(deltax)
-            print(deltay)
-            print(deltaz)
-            page.add(ft.Text(f"Δ={delta}\nΔx={deltax}\nΔy={deltay}\nΔx={deltaz}\nx={deltax/delta}\ny={deltay/delta}\nz={deltaz/delta}"))
-            matrixs = []
-        new_task.value = ""
-        new_task.focus()
-        new_task.update()
+                    matrix[i].append(int(a))
+            else:
+                a = sistema[i][sistema[i].index("x")+1:sistema[i].index("y")]
+                if a == "+":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
+                else:
+                    if a != "+" and "+" in a:
+                        matrix[i].append(int(a[1:]))
+                    elif a != "-" and "-" in a:
+                        matrix[i].append(int(a))
+        a = sistema[i][sistema[i].index("=") + 1:]
+        if "\r" in a:
+            matrix[i].append(int(a[:-1]))
+        else:
+            matrix[i].append(int(a))
+    return matrix
 
-    new_task = ft.TextField(label="Введите сюда систему:", multiline = True, min_lines = 1, max_lines = 3)
-    page.add(ft.Row([new_task, ft.ElevatedButton("Add", on_click=add_clicked)]))
 
-def apper(a):
+def matrix_3(sistema):
+    matrix = []
+    for i in range(3):
+        matrix.append([])
+        if "x" not in sistema[i]:
+            matrix[i].append(0)
+        else:
+            if sistema[i].index("x") < sistema[i].index("y") and sistema[i].index("x") < sistema[i].index("z"):
+                a = sistema[i][:sistema[i].index("x")]
+                if a == "":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
+                else:
+                    matrix[i].append(int(a))
+            elif sistema[i].index("y") < sistema[i].index("x") < sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("y")+1:sistema[i].index("x")]
+            elif sistema[i].index("z") < sistema[i].index("x") < sistema[i].index("y"):
+                a = sistema[i][sistema[i].index("z")+1:sistema[i].index("x")]
+            elif sistema[i].index("y") < sistema[i].index("x") and sistema[i].index("z") < sistema[i].index("x") and sistema[i].index("y") < sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("z")+1:sistema[i].index("x")]
+            elif sistema[i].index("y") < sistema[i].index("x") and sistema[i].index("z") < sistema[i].index("x") and sistema[i].index("y") > sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("y")+1:sistema[i].index("x")]
+            if a == "+":
+                matrix[i].append(1)
+            elif a == "-":
+                matrix[i].append(-1)
+            else:
+                if a != "+" and "+" in a:
+                    matrix[i].append(int(a[1:]))
+                elif a != "-" and "-" in a:
+                    matrix[i].append(int(a))
+        if "y" not in sistema[i]:
+            matrix[i].append(0)
+        else:
+            if sistema[i].index("y") < sistema[i].index("x") and sistema[i].index("y") < sistema[i].index("z"):
+                a = sistema[i][:sistema[i].index("y")]
+                if a == "":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
+                else:
+                    matrix[i].append(int(a))
+            elif sistema[i].index("x") < sistema[i].index("y") < sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("x") + 1:sistema[i].index("y")]
+            elif sistema[i].index("z") < sistema[i].index("y") < sistema[i].index("x"):
+                a = sistema[i][sistema[i].index("z") + 1:sistema[i].index("y")]
+            elif sistema[i].index("x") < sistema[i].index("y") and sistema[i].index("z") < sistema[i].index("y") and sistema[i].index("x") < sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("z") + 1:sistema[i].index("y")]
+            elif sistema[i].index("x") < sistema[i].index("y") and sistema[i].index("z") < sistema[i].index("y") and sistema[i].index("x") > sistema[i].index("z"):
+                a = sistema[i][sistema[i].index("x") + 1:sistema[i].index("y")]
+            if a == "+":
+                matrix[i].append(1)
+            elif a == "-":
+                matrix[i].append(-1)
+            else:
+                if a != "+" and "+" in a:
+                    matrix[i].append(int(a[1:]))
+                elif a != "-" and "-" in a:
+                    matrix[i].append(int(a))
+        if "z" not in sistema[i]:
+            matrix[i].append(0)
+        else:
+            if sistema[i].index("z") < sistema[i].index("x") and sistema[i].index("z") < sistema[i].index("y"):
+                a = sistema[i][:sistema[i].index("z")]
+                if a == "":
+                    matrix[i].append(1)
+                elif a == "-":
+                    matrix[i].append(-1)
+                else:
+                    matrix[i].append(int(a))
+            elif sistema[i].index("x") < sistema[i].index("z") < sistema[i].index("y"):
+                a = sistema[i][sistema[i].index("x") + 1:sistema[i].index("z")]
+            elif sistema[i].index("y") < sistema[i].index("z") < sistema[i].index("x"):
+                a = sistema[i][sistema[i].index("y") + 1:sistema[i].index("z")]
+            elif sistema[i].index("x") < sistema[i].index("z") and sistema[i].index("y") < sistema[i].index("z") and sistema[i].index("x") < sistema[i].index("y"):
+                a = sistema[i][sistema[i].index("y") + 1:sistema[i].index("z")]
+            elif sistema[i].index("x") < sistema[i].index("z") and sistema[i].index("y") < sistema[i].index("z") and sistema[i].index("x") > sistema[i].index("y"):
+                a = sistema[i][sistema[i].index("x") + 1:sistema[i].index("z")]
+            if a == "+":
+                matrix[i].append(1)
+            elif a == "-":
+                matrix[i].append(-1)
+            else:
+                if a != "+" and "+" in a:
+                    matrix[i].append(int(a[1:]))
+                elif a != "-" and "-" in a:
+                    matrix[i].append(int(a))
+        a = sistema[i][sistema[i].index("=") + 1:]
+        if "\r" in a:
+            matrix[i].append(int(a[:-1]))
+        else:
+            matrix[i].append(int(a))
+    return matrix
+
+def kramer_2(matrix):
+    matrix_delt = [matrix[0][:2], matrix[1][:2]]
+    matrix_deltx = [[matrix[0][2], matrix[0][1]], [matrix[1][2], matrix[1][1]]]
+    matrix_delty = [[matrix[0][0], matrix[0][2]], [matrix[1][0], matrix[1][2]]]
+    delt = f"({matrix_delt[0][0]}*{matrix_delt[1][1]}) - ({matrix_delt[0][1]}*{matrix_delt[1][0]})"
+    deltx = f"({matrix_deltx[0][0]}*{matrix_deltx[1][1]}) - ({matrix_deltx[0][1]}*{matrix_deltx[1][0]})"
+    delty = f"({matrix_delty[0][0]}*{matrix_delty[1][1]}) - ({matrix_delty[0][1]}*{matrix_delty[1][0]})"
+    delt_num = (matrix_delt[0][0]*matrix_delt[1][1]) - (matrix_delt[0][1]*matrix_delt[1][0])
+    deltx_num = (matrix_deltx[0][0]*matrix_deltx[1][1]) - (matrix_deltx[0][1]*matrix_deltx[1][0])
+    delty_num = (matrix_delty[0][0]*matrix_delty[1][1]) - (matrix_delty[0][1]*matrix_delty[1][0])
+    x = deltx_num / delt_num
+    y = delty_num / delt_num
+    return matrix_delt, matrix_deltx, matrix_delty, delt, deltx, delty, delt_num, deltx_num, delty_num, x, y
+
+def kramer_3(matrix):
+    matrix_delt = [matrix[0][:3], matrix[1][:3], matrix[2][:3]]
+    matrix_deltx = [[matrix[0][3], matrix[0][1], matrix[0][2]], [matrix[1][3], matrix[1][1], matrix[1][2]], [matrix[2][3], matrix[2][1], matrix[2][2]]]
+    matrix_delty = [[matrix[0][0], matrix[0][3], matrix[0][2]], [matrix[1][0], matrix[1][3], matrix[1][2]], [matrix[2][0], matrix[2][3], matrix[2][2]]]
+    matrix_deltz = [[matrix[0][0], matrix[0][1], matrix[0][3]], [matrix[1][0], matrix[1][1], matrix[1][3]], [matrix[2][0], matrix[2][1], matrix[2][3]]]
+    delt_tr_dp = f"({matrix_delt[0][0]} * {matrix_delt[1][1]} * {matrix_delt[2][2]}) + ({matrix_delt[0][1]} * {matrix_delt[1][2]} * {matrix_delt[2][0]}) + ({matrix_delt[0][2]} * {matrix_delt[1][0]} * {matrix_delt[2][1]}) - ({matrix_delt[0][2]} * {matrix_delt[1][1]} * {matrix_delt[2][0]}) - ({matrix_delt[0][1]} * {matrix_delt[1][0]} * {matrix_delt[2][2]}) - ({matrix_delt[0][0]} * {matrix_delt[1][2]} * {matrix_delt[2][1]})"
+    deltx_tr_dp = f"({matrix_deltx[0][0]} * {matrix_deltx[1][1]} * {matrix_deltx[2][2]}) + ({matrix_deltx[0][1]} * {matrix_deltx[1][2]} * {matrix_deltx[2][0]}) + ({matrix_deltx[0][2]} * {matrix_deltx[1][0]} * {matrix_deltx[2][1]}) - ({matrix_deltx[0][2]} * {matrix_deltx[1][1]} * {matrix_deltx[2][0]}) - ({matrix_deltx[0][1]} * {matrix_deltx[1][0]} * {matrix_deltx[2][2]}) - ({matrix_deltx[0][0]} * {matrix_deltx[1][2]} * {matrix_deltx[2][1]})"
+    delty_tr_dp = f"({matrix_delty[0][0]} * {matrix_delty[1][1]} * {matrix_delty[2][2]}) + ({matrix_delty[0][1]} * {matrix_delty[1][2]} * {matrix_delty[2][0]}) + ({matrix_delty[0][2]} * {matrix_delty[1][0]} * {matrix_delty[2][1]}) - ({matrix_delty[0][2]} * {matrix_delty[1][1]} * {matrix_delty[2][0]}) - ({matrix_delty[0][1]} * {matrix_delty[1][0]} * {matrix_delty[2][2]}) - ({matrix_delty[0][0]} * {matrix_delty[1][2]} * {matrix_delty[2][1]})"
+    deltz_tr_dp = f"({matrix_deltz[0][0]} * {matrix_deltz[1][1]} * {matrix_deltz[2][2]}) + ({matrix_deltz[0][1]} * {matrix_deltz[1][2]} * {matrix_deltz[2][0]}) + ({matrix_deltz[0][2]} * {matrix_deltz[1][0]} * {matrix_deltz[2][1]}) - ({matrix_deltz[0][2]} * {matrix_deltz[1][1]} * {matrix_deltz[2][0]}) - ({matrix_deltz[0][1]} * {matrix_deltz[1][0]} * {matrix_deltz[2][2]}) - ({matrix_deltz[0][0]} * {matrix_deltz[1][2]} * {matrix_deltz[2][1]})"
+    delt_num = (matrix_delt[0][0] * matrix_delt[1][1] * matrix_delt[2][2]) + (matrix_delt[0][1] * matrix_delt[1][2] * matrix_delt[2][0]) + (matrix_delt[0][2] * matrix_delt[1][0] * matrix_delt[2][1]) - (matrix_delt[0][2] * matrix_delt[1][1] * matrix_delt[2][0]) - (matrix_delt[0][1] * matrix_delt[1][0] * matrix_delt[2][2]) - (matrix_delt[0][0] * matrix_delt[1][2] * matrix_delt[2][1])
+    deltx_num = (matrix_deltx[0][0] * matrix_deltx[1][1] * matrix_deltx[2][2]) + (matrix_deltx[0][1] * matrix_deltx[1][2] * matrix_deltx[2][0]) + (matrix_deltx[0][2] * matrix_deltx[1][0] * matrix_deltx[2][1]) - (matrix_deltx[0][2] * matrix_deltx[1][1] * matrix_deltx[2][0]) - (matrix_deltx[0][1] * matrix_deltx[1][0] * matrix_deltx[2][2]) - (matrix_deltx[0][0] * matrix_deltx[1][2] * matrix_deltx[2][1])
+    delty_num = (matrix_delty[0][0] * matrix_delty[1][1] * matrix_delty[2][2]) + (matrix_delty[0][1] * matrix_delty[1][2] * matrix_delty[2][0]) + (matrix_delty[0][2] * matrix_delty[1][0] * matrix_delty[2][1]) - (matrix_delty[0][2] * matrix_delty[1][1] * matrix_delty[2][0]) - (matrix_delty[0][1] * matrix_delty[1][0] * matrix_delty[2][2]) - (matrix_delty[0][0] * matrix_delty[1][2] * matrix_delty[2][1])
+    deltz_num = (matrix_deltz[0][0] * matrix_deltz[1][1] * matrix_deltz[2][2]) + (matrix_deltz[0][1] * matrix_deltz[1][2] * matrix_deltz[2][0]) + (matrix_deltz[0][2] * matrix_deltz[1][0] * matrix_deltz[2][1]) - (matrix_deltz[0][2] * matrix_deltz[1][1] * matrix_deltz[2][0]) - (matrix_deltz[0][1] * matrix_deltz[1][0] * matrix_deltz[2][2]) - (matrix_deltz[0][0] * matrix_deltz[1][2] * matrix_deltz[2][1])
+    x = deltx_num / delt_num
+    y = delty_num / delt_num
+    z = deltz_num / delt_num
+    return matrix_delt, matrix_deltx, matrix_delty, matrix_deltz, delt_tr_dp, deltx_tr_dp, delty_tr_dp, deltz_tr_dp, delt_num, deltx_num, delty_num,deltz_num, x, y, z
+
+
+def main(page: ft.Page):
+    page.title = "Kramer"
     global b
-    b = a
-    ft.app(target=main)
+    def add_clicked(e):
+        try:
+            sistems = sistem.value.split("\n")
+        except:
+            page.add(ft.Text("Error"))
+        try:
+            if len(sistem.value) == 2:
+                matrix_delt, matrix_deltx, matrix_delty, delt, deltx, delty, delt_num, deltx_num, delty_num, x, y = kramer_2(matrix_2(sistems))
+                matrix = matrix_2(sistems)
+                page.add(ft.Text("Матрица:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix)))
+                page.add(ft.Text("Определитель:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_delt)))
+                page.add(ft.Text("Определитель X:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_deltx)))
+                page.add(ft.Text("Определитель Y:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_delty)))
+                page.add(ft.Text(f"Δ   =  {delt}   = {delt_num}"))
+                page.add(ft.Text(f"Δx  =  {deltx}  = {deltx_num}"))
+                page.add(ft.Text(f"Δy  =  {delty}  = {delty_num}"))
+                page.add(ft.Text(f"x  =  Δx/Δ  = {deltx_num}/{delt_num}  =  {x}"))
+                page.add(ft.Text(f"y  =  Δy/Δ  = {delty_num}/{delt_num}  =  {y}"))
+            else:
+                matrix_delt, matrix_deltx, matrix_delty, matrix_deltz, delt_tr_dp, deltx_tr_dp, delty_tr_dp, deltz_tr_dp, delt_num, deltx_num, delty_num, deltz_num, x, y, z = kramer_3(matrix_3(sistems))
+                matrix = matrix_3(sistems)
+                page.add(ft.Text("Матрица:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix)))
+                page.add(ft.Text("Определитель:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_delt)))
+                page.add(ft.Text("Определитель X:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_deltx)))
+                page.add(ft.Text("Определитель Y:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_delty)))
+                page.add(ft.Text("Определитель Z:"))
+                page.add(ft.Text('\n'.join('     '.join(map(str, row)) for row in matrix_deltz)))
+                page.add(ft.Text(f"Δ   =  {delt_tr_dp}   = {delt_num}"))
+                page.add(ft.Text(f"Δx  =  {deltx_tr_dp}  = {deltx_num}"))
+                page.add(ft.Text(f"Δy  =  {delty_tr_dp}  = {delty_num}"))
+                page.add(ft.Text(f"Δz  =  {deltz_tr_dp}  = {deltz_num}"))
+                page.add(ft.Text(f"x  =  Δx/Δ  = {deltx_num}/{delt_num}  =  {x}"))
+                page.add(ft.Text(f"y  =  Δy/Δ  = {delty_num}/{delt_num}  =  {y}"))
+                page.add(ft.Text(f"z  =  Δz/Δ  = {deltz_num}/{delt_num}  =  {z}"))
+        except:
+            page.add(ft.Text("Error"))
 
-apper(1)
 
 
+        sistem.value = ""
+        sistem.focus()
+        sistem.update()
+        page.visible=False
+
+    lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+    page.add(lv)
+    sistem = ft.TextField(label="Введите сюда систему:", multiline = True, min_lines = 1, max_lines = 3)
+    page.add(ft.Row([sistem, ft.ElevatedButton("Enter", on_click=add_clicked)]))
+
+ft.app(target=main)
+#
 # 5x-y-z=0
 # x+2y+3z=14
 # 4x+3y+2z=16
-
+#
 # 3x-2y+4z=21
 # 3x+4y-2z=9
 # 2x-y-z=1
