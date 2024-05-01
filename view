@@ -6,16 +6,8 @@ new_task=[]
 
 
 def main(page: ft.Page):
-    page.title = "Kramer"
-        sistem.value = ""
-        sistem.focus()
-        sistem.update()
-        page.visible=False
-
-    lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-    page.add(lv)
     sistem = ft.TextField(label="Введите сюда систему:", multiline = True, min_lines = 1, max_lines = 3)
-    page.add(ft.Row([sistem, ft.ElevatedButton("Enter", on_click=add_clicked)]))
+    page.add(ft.Row([sistem, ft.ElevatedButton("Enter")]))
 
 ft.app(target=main)
 #
