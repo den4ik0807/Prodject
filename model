@@ -216,3 +216,35 @@ def ansver_kramer(e,sistem):
                     f"z  =  Δz/Δ  = {deltz_num}/{delt_num}  =  {z}"]
     except:
         return "ERROR"
+
+
+def matrix_method(matrix):
+    matrix_delt = [matrix[0][:3], matrix[1][:3], matrix[2][:3]]
+    if (matrix_delt[0][0] * matrix_delt[1][1] * matrix_delt[2][2]) + (matrix_delt[0][1] * matrix_delt[1][2] * matrix_delt[2][0]) + (matrix_delt[0][2] * matrix_delt[1][0] * matrix_delt[2][1]) - (matrix_delt[0][2] * matrix_delt[1][1] * matrix_delt[2][0]) - (matrix_delt[0][1] * matrix_delt[1][0] * matrix_delt[2][2]) - (matrix_delt[0][0] * matrix_delt[1][2] * matrix_delt[2][1])!=0:
+        A=[["b11","b12","b13"],["b21","b22","b23"],["b31","b32","b33"]]
+        a11 = ((matrix[1][1] * matrix[2][2]) - (matrix[2][1] * matrix[1][2]))
+        a12 = -1*((matrix[1][0] * matrix[2][2]) - (matrix[2][0] * matrix[1][2]))
+        a13 = ((matrix[1][0] * matrix[2][1]) - (matrix[2][0] * matrix[1][1]))
+        a21 = -1*((matrix[0][1] * matrix[2][2]) - (matrix[2][1] * matrix[0][2]))
+        a22 = ((matrix[0][0] * matrix[2][2]) - (matrix[2][0] * matrix[0][2]))
+        a23 = -1*((matrix[0][0] * matrix[2][1]) - (matrix[2][0] * matrix[0][1]))
+        a31 = ((matrix[0][1] * matrix[1][2]) - (matrix[1][1] * matrix[0][2]))
+        a32 = -1*((matrix[0][0] * matrix[1][2]) - (matrix[1][0] * matrix[0][2]))
+        a33 = ((matrix[0][0] * matrix[1][1]) - (matrix[1][0] * matrix[0][1]))
+        B=[f"a11 = b22 * b33 - b32 * b23 = {matrix[1][1]} * {matrix[2][2]} - {matrix[2][1]} * {matrix[1][2]} = {a11}",
+           f"a12 = b21 * b33 - b31 * b23 = -1 * {matrix[1][0]} * {matrix[2][2]} - {matrix[2][0]} * {matrix[1][2]} = {a12}",
+           f"a13 = b21 * b32 - b31 * b22 = {matrix[1][0]} * {matrix[2][1]} - {matrix[2][0]} * {matrix[1][1]} = {a13}",
+           f"a21 = b12 * b33 - b32 * b13 = -1 * {matrix[0][1]} * {matrix[2][2]} - {matrix[2][1]} * {matrix[0][2]} = {a21}",
+           f"a22 = b11 * b33 - b31 * b13 = {matrix[0][0]} * {matrix[2][2]} - {matrix[2][0]} * {matrix[0][2]} = {a22}",
+           f"a23 = b11 * b32 - b31 * b12 = -1 * {matrix[0][0]} * {matrix[2][1]} - {matrix[2][0]} * {matrix[0][1]} = {a23}",
+           f"a31 = b12 * b23 - b22 * b13 = {matrix[0][1]} * {matrix[1][2]} - {matrix[1][1]} * {matrix[0][2]} = {a31}",
+           f"a32 = b11 * b23 - b21 * b13 = -1 * {matrix[0][0]} * {matrix[1][2]} - {matrix[1][0]} * {matrix[0][2]} = {a32}",
+           f"a33 = b11 * b22 - b21 * b12 = {matrix[0][0]} * {matrix[1][1]} - {matrix[1][0]} * {matrix[0][1]} = {a33}",
+           ]
+        C=[[a11,a12,a13],[a21,a22,a23],[a31,a32,a33]]
+        D=[[a11,a21,a31],[a12,a22,a32],[a13,a23,a33]]
+    else:
+        return "It is impossible to do it using the matrix method. Because the delta is zero"
+matrix_method([[1,2,3],
+               [4,5,6],
+               [7,8,9]])
