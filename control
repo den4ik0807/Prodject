@@ -1,0 +1,29 @@
+import view
+import model
+
+
+def just_answer(system):
+    try:
+        return view.calcul(model.answer_kramer(system),model.matrix_method(model.matrix_3(system)))
+    except:
+        return "ERROR"
+
+
+def kramer(system):
+    try:
+        return model.answer_kramer(system)
+    except:
+        return "ERROR"
+
+
+def matrix(system):
+    try:
+        return model.matrix_method(model.matrix_3(system))
+    except:
+        return "ERROR"
+
+def funk(system):
+    try:
+        return view.funk(model.answer_kramer(system)[-1],model.answer_kramer(system)[-2],model.answer_kramer(system)[-4], model.answer_kramer(system)[-3])
+    except:
+        return "ERROR"
