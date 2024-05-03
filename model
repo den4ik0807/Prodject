@@ -342,7 +342,7 @@ def kramer_3(matrix):
 
 def answer_kramer(system):
     try:
-        systems = system.split("\r\n")
+        systems = system.split()
     except:
         return "ERROR"
     try:
@@ -413,7 +413,7 @@ def matrix_method(matrix):
                  f"z = d31 / delta = {d31} / {delt_num} = {z}"
                 ]
             return [matrix, matrix_delt, delt_tr_dp, delt_num, A, '\n'.join(''.join(map(str, row)) for row in B), '\n'.join(' '.join(map(str, row)) for row in C), '\n'.join(' '.join(map(str, row)) for row in D), '\n'.join(''.join(map(str, row)) for row in E), '\n'.join(''.join(map(str, row)) for row in F), x,y,z]
-    
+
         else:
             return ["It is impossible to do it using the matrix method. Because the delta is zero", matrix_delt, delt_tr_dp, delt_num]
     except:
