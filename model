@@ -1,3 +1,6 @@
+import pandas as pd
+import os
+
 def matrix_2(system):
     matrix = []
     for i in range(2):
@@ -339,7 +342,7 @@ def answer_kramer(system):
             return ["Матрица:", '\n'.join('  '.join(map(str, row)) for row in matrix), "Определитель:",
                     '\n'.join('  '.join(map(str, row)) for row in matrix_delt), "Определитель X:",
                     '\n'.join('  '.join(map(str, row)) for row in matrix_deltx), "Определитель Y:",
-                    '\n'.join('  '.join(map(str, row)) for row in matrix_delty),delt,deltx,delty,x_ans,y_ans,x,y]
+                    '\n'.join('  '.join(map(str, row)) for row in matrix_delty),delt,deltx,delty,x_ans,y_ans,x,y,f"({matrix[0][2]} + {-1 * matrix[0][0]} * x) / {matrix[0][1]}", f"({matrix[1][2]} + {-1 * matrix[1][0]} * x) / {matrix[1][1]}"]
         else:
             matrix_delt, matrix_deltx, matrix_delty, matrix_deltz, delt_tr_dp, deltx_tr_dp, delty_tr_dp, deltz_tr_dp, delt_num, deltx_num, delty_num,deltz_num,ans_x,ans_y,ans_z, x, y, z = kramer_3(matrix_3(systems))
             matrix = matrix_3(systems)
@@ -398,7 +401,31 @@ def matrix_method(matrix):
              f"y = d21 / delta = {d21} / {delt_num} = {y}",
              f"z = d31 / delta = {d31} / {delt_num} = {z}"
             ]
-        return matrix, matrix_delt, delt_tr_dp, delt_num, A, '\n'.join(''.join(map(str, row)) for row in B), '\n'.join(' '.join(map(str, row)) for row in C), '\n'.join(' '.join(map(str, row)) for row in D), '\n'.join(''.join(map(str, row)) for row in E), '\n'.join(''.join(map(str, row)) for row in F)
+        return [matrix, matrix_delt, delt_tr_dp, delt_num, A, '\n'.join(''.join(map(str, row)) for row in B), '\n'.join(' '.join(map(str, row)) for row in C), '\n'.join(' '.join(map(str, row)) for row in D), '\n'.join(''.join(map(str, row)) for row in E), '\n'.join(''.join(map(str, row)) for row in F), x,y,z]
 
     else:
         return ["It is impossible to do it using the matrix method. Because the delta is zero", matrix_delt, delt_tr_dp, delt_num]
+
+
+def add_data_to_file(matrix):
+    data=pd.DataFrame({"X":[matrix[0][0], matrix[1][0]], "Y":[matrix[0][1], matrix[1][1]], "Свободные коэффициенты":[matrix[0][2], matrix[1][2]]})
+    if not os.path.exists('Systems.excel'):
+        open('Systems.excel', 'w').close()
+    else:
+        try:
+            df = pd.read_excel('Systems.excel')
+            new_df = pd.concat([df, data], ignore_index=True)
+            new_df.to_excel('Systems.excel', index=False)
+        except:
+            print('ERROR')
+
+
+def read_data_excel():
+    return pd.read_excel('Systems.excel').values.tolist()
+
+
+def del_excel():
+    try:
+        pd.concat("", ignore_index=True).to_excel('Systems.excel', index=False)
+    except:
+        print('ERROR')
