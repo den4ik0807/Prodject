@@ -294,21 +294,25 @@ def matrix_3(system):
     except:
         return "ERROR"
 
+
 def kramer_2(matrix):
-    matrix_delt = [matrix[0][:2], matrix[1][:2]]
-    matrix_deltx = [[matrix[0][2], matrix[0][1]], [matrix[1][2], matrix[1][1]]]
-    matrix_delty = [[matrix[0][0], matrix[0][2]], [matrix[1][0], matrix[1][2]]]
-    delt_num = (matrix_delt[0][0]*matrix_delt[1][1]) - (matrix_delt[0][1]*matrix_delt[1][0])
-    deltx_num = (matrix_deltx[0][0]*matrix_deltx[1][1]) - (matrix_deltx[0][1]*matrix_deltx[1][0])
-    delty_num = (matrix_delty[0][0]*matrix_delty[1][1]) - (matrix_delty[0][1]*matrix_delty[1][0])
-    delt = f"Δ = a11 * a22 - a12 * a21 = {matrix_delt[0][0]} * {matrix_delt[1][1]} - {matrix_delt[0][1]} * {matrix_delt[1][0]} = {delt_num}"
-    deltx = f"Δx = b11 * b22 - b12 * b21 = {matrix_deltx[0][0]} * {matrix_deltx[1][1]} - {matrix_deltx[0][1]} * {matrix_deltx[1][0]} = {deltx_num}"
-    delty = f"Δy = c11 * c22 - c12 * c21 = {matrix_delty[0][0]} * {matrix_delty[1][1]} - {matrix_delty[0][1]} * {matrix_delty[1][0]} = {delty_num}"
-    x = deltx_num / delt_num
-    y = delty_num / delt_num
-    x_ans = f"x = Δx / Δ = {deltx_num} / {delt_num} = {x}"
-    y_ans = f"y = Δy / Δ = {delty_num} / {delt_num} = {y}"
-    return matrix_delt, matrix_deltx, matrix_delty, delt, deltx, delty, delt_num, deltx_num, delty_num,x_ans,y_ans, x, y
+    try:
+        matrix_delt = [matrix[0][:2], matrix[1][:2]]
+        matrix_deltx = [[matrix[0][2], matrix[0][1]], [matrix[1][2], matrix[1][1]]]
+        matrix_delty = [[matrix[0][0], matrix[0][2]], [matrix[1][0], matrix[1][2]]]
+        delt_num = (matrix_delt[0][0]*matrix_delt[1][1]) - (matrix_delt[0][1]*matrix_delt[1][0])
+        deltx_num = (matrix_deltx[0][0]*matrix_deltx[1][1]) - (matrix_deltx[0][1]*matrix_deltx[1][0])
+        delty_num = (matrix_delty[0][0]*matrix_delty[1][1]) - (matrix_delty[0][1]*matrix_delty[1][0])
+        delt = f"Δ = a11 * a22 - a12 * a21 = {matrix_delt[0][0]} * {matrix_delt[1][1]} - {matrix_delt[0][1]} * {matrix_delt[1][0]} = {delt_num}"
+        deltx = f"Δx = b11 * b22 - b12 * b21 = {matrix_deltx[0][0]} * {matrix_deltx[1][1]} - {matrix_deltx[0][1]} * {matrix_deltx[1][0]} = {deltx_num}"
+        delty = f"Δy = c11 * c22 - c12 * c21 = {matrix_delty[0][0]} * {matrix_delty[1][1]} - {matrix_delty[0][1]} * {matrix_delty[1][0]} = {delty_num}"
+        x = deltx_num / delt_num
+        y = delty_num / delt_num
+        x_ans = f"x = Δx / Δ = {deltx_num} / {delt_num} = {x}"
+        y_ans = f"y = Δy / Δ = {delty_num} / {delt_num} = {y}"
+        return matrix_delt, matrix_deltx, matrix_delty, delt, deltx, delty, delt_num, deltx_num, delty_num,x_ans,y_ans, x, y
+    except:
+        return "ERROR"
 
 
 def kramer_3(matrix):
