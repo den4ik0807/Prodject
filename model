@@ -66,75 +66,19 @@ def matrix_2(system):
                 matrix[i].append(int(a))
         return matrix
     except:
-        print("ERROR")
+        return "ERROR"
 
 
 def matrix_3(system):
-    matrix = []
-    for i in range(3):
-        matrix.append([])
-        if "x" not in system[i]:
-            matrix[i].append(0)
-            if "y" not in system[i]:
+    try:
+        matrix = []
+        for i in range(3):
+            matrix.append([])
+            if "x" not in system[i]:
                 matrix[i].append(0)
-                a = system[i][:system[i].index("z")]
-                if a == "":
-                    matrix[i].append(1)
-                elif a == "-":
-                    matrix[i].append(-1)
-                else:
-                    matrix[i].append(int(a))
-            else:
-                if "z" not in system[i]:
-                    a = system[i][:system[i].index("y")]
-                    if a == "":
-                        matrix[i].append(1)
-                    elif a == "-":
-                        matrix[i].append(-1)
-                    else:
-                        matrix[i].append(int(a))
+                if "y" not in system[i]:
                     matrix[i].append(0)
-                else:
-                    if system[i].index("y") < system[i].index("z"):
-                        a = system[i][:system[i].index("y")]
-                        if a == "":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            matrix[i].append(int(a))
-                        a = system[i][system[i].index("y") + 1:system[i].index("z")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
-                                matrix[i].append(int(a))
-                    elif system[i].index("y") > system[i].index("z"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("y")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
-                                matrix[i].append(int(a))
-                        a = system[i][:system[i].index("z")]
-                        if a == "":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            matrix[i].append(int(a))
-        else:
-            if "y" not in system[i]:
-                if "z" not in system[i]:
-                    a = system[i][:system[i].index("x")]
+                    a = system[i][:system[i].index("z")]
                     if a == "":
                         matrix[i].append(1)
                     elif a == "-":
@@ -142,8 +86,8 @@ def matrix_3(system):
                     else:
                         matrix[i].append(int(a))
                 else:
-                    if system[i].index("x") < system[i].index("z"):
-                        a = system[i][:system[i].index("x")]
+                    if "z" not in system[i]:
+                        a = system[i][:system[i].index("y")]
                         if a == "":
                             matrix[i].append(1)
                         elif a == "-":
@@ -151,38 +95,46 @@ def matrix_3(system):
                         else:
                             matrix[i].append(int(a))
                         matrix[i].append(0)
-                        a = system[i][system[i].index("x") + 1:system[i].index("z")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
+                    else:
+                        if system[i].index("y") < system[i].index("z"):
+                            a = system[i][:system[i].index("y")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
                                 matrix[i].append(int(a))
-                    elif system[i].index("x") > system[i].index("z"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("x")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
+                            a = system[i][system[i].index("y") + 1:system[i].index("z")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                        elif system[i].index("y") > system[i].index("z"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("y")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                            a = system[i][:system[i].index("z")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
                                 matrix[i].append(int(a))
-                        matrix[i].append(0)
-                        a = system[i][:system[i].index("z")]
-                        if a == "":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            matrix[i].append(int(a))
             else:
-                if "z" not in system[i]:
-                    if system[i].index("x") < system[i].index("y"):
+                if "y" not in system[i]:
+                    if "z" not in system[i]:
                         a = system[i][:system[i].index("x")]
                         if a == "":
                             matrix[i].append(1)
@@ -190,106 +142,157 @@ def matrix_3(system):
                             matrix[i].append(-1)
                         else:
                             matrix[i].append(int(a))
-                        a = system[i][system[i].index("x") + 1:system[i].index("y")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
+                    else:
+                        if system[i].index("x") < system[i].index("z"):
+                            a = system[i][:system[i].index("x")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
                                 matrix[i].append(int(a))
-                        matrix[i].append(0)
-                    elif system[i].index("x") > system[i].index("y"):
-                        a = system[i][system[i].index("y") + 1:system[i].index("x")]
-                        if a == "+":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            if a != "+" and "+" in a:
-                                matrix[i].append(int(a[1:]))
-                            elif a != "-" and "-" in a:
+                            matrix[i].append(0)
+                            a = system[i][system[i].index("x") + 1:system[i].index("z")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                        elif system[i].index("x") > system[i].index("z"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("x")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                            matrix[i].append(0)
+                            a = system[i][:system[i].index("z")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
                                 matrix[i].append(int(a))
-                        a = system[i][:system[i].index("y")]
-                        if a == "":
-                            matrix[i].append(1)
-                        elif a == "-":
-                            matrix[i].append(-1)
-                        else:
-                            matrix[i].append(int(a))
-                        matrix[i].append(0)
                 else:
-                    if system[i].index("x") < system[i].index("y") and system[i].index("x") < system[i].index("z"):
-                        a = system[i][:system[i].index("x")]
-                    elif system[i].index("y") < system[i].index("x") < system[i].index("z"):
-                        a = system[i][system[i].index("y") + 1:system[i].index("x")]
-                    elif system[i].index("z") < system[i].index("x") < system[i].index("y"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("x")]
-                    elif system[i].index("y") < system[i].index("x") and system[i].index("x") > system[i].index("z") > system[i].index("y"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("x")]
-                    elif system[i].index("x") > system[i].index("y") > system[i].index("z") and system[i].index("z") < system[i].index("x"):
-                        a = system[i][system[i].index("y") + 1:system[i].index("x")]
-                    if a == "+" or a=="":
-                        matrix[i].append(1)
-                    elif a == "-":
-                        matrix[i].append(-1)
+                    if "z" not in system[i]:
+                        if system[i].index("x") < system[i].index("y"):
+                            a = system[i][:system[i].index("x")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                matrix[i].append(int(a))
+                            a = system[i][system[i].index("x") + 1:system[i].index("y")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                            matrix[i].append(0)
+                        elif system[i].index("x") > system[i].index("y"):
+                            a = system[i][system[i].index("y") + 1:system[i].index("x")]
+                            if a == "+":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                if a != "+" and "+" in a:
+                                    matrix[i].append(int(a[1:]))
+                                elif a != "-" and "-" in a:
+                                    matrix[i].append(int(a))
+                            a = system[i][:system[i].index("y")]
+                            if a == "":
+                                matrix[i].append(1)
+                            elif a == "-":
+                                matrix[i].append(-1)
+                            else:
+                                matrix[i].append(int(a))
+                            matrix[i].append(0)
                     else:
-                        if a != "+" and "+" in a:
-                            matrix[i].append(int(a[1:]))
-                        elif a != "-" and "-" in a:
-                            matrix[i].append(int(a))
+                        if system[i].index("x") < system[i].index("y") and system[i].index("x") < system[i].index("z"):
+                            a = system[i][:system[i].index("x")]
+                        elif system[i].index("y") < system[i].index("x") < system[i].index("z"):
+                            a = system[i][system[i].index("y") + 1:system[i].index("x")]
+                        elif system[i].index("z") < system[i].index("x") < system[i].index("y"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("x")]
+                        elif system[i].index("y") < system[i].index("x") and system[i].index("x") > system[i].index("z") > system[i].index("y"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("x")]
+                        elif system[i].index("x") > system[i].index("y") > system[i].index("z") and system[i].index("z") < system[i].index("x"):
+                            a = system[i][system[i].index("y") + 1:system[i].index("x")]
+                        if a == "+" or a=="":
+                            matrix[i].append(1)
+                        elif a == "-":
+                            matrix[i].append(-1)
                         else:
-                            matrix[i].append(int(a))
-                    if system[i].index("y") < system[i].index("x") and system[i].index("y") < system[i].index("z"):
-                        a = system[i][:system[i].index("y")]
-                    elif system[i].index("x") < system[i].index("y") < system[i].index("z"):
-                        a = system[i][system[i].index("x") + 1:system[i].index("y")]
-                    elif system[i].index("z") < system[i].index("y") < system[i].index("x"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("y")]
-                    elif system[i].index("x") < system[i].index("y") and system[i].index("z") < system[i].index("y") and system[i].index("x") < system[i].index("z"):
-                        a = system[i][system[i].index("z") + 1:system[i].index("y")]
-                    elif system[i].index("x") < system[i].index("y") and system[i].index("z") < system[i].index("y") and system[i].index("x") > system[i].index("z"):
-                        a = system[i][system[i].index("x") + 1:system[i].index("y")]
-                    if a == "+":
-                        matrix[i].append(1)
-                    elif a == "-":
-                        matrix[i].append(-1)
-                    else:
-                        if a != "+" and "+" in a:
-                            matrix[i].append(int(a[1:]))
-                        elif a != "-" and "-" in a:
-                            matrix[i].append(int(a))
+                            if a != "+" and "+" in a:
+                                matrix[i].append(int(a[1:]))
+                            elif a != "-" and "-" in a:
+                                matrix[i].append(int(a))
+                            else:
+                                matrix[i].append(int(a))
+                        if system[i].index("y") < system[i].index("x") and system[i].index("y") < system[i].index("z"):
+                            a = system[i][:system[i].index("y")]
+                        elif system[i].index("x") < system[i].index("y") < system[i].index("z"):
+                            a = system[i][system[i].index("x") + 1:system[i].index("y")]
+                        elif system[i].index("z") < system[i].index("y") < system[i].index("x"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("y")]
+                        elif system[i].index("x") < system[i].index("y") and system[i].index("z") < system[i].index("y") and system[i].index("x") < system[i].index("z"):
+                            a = system[i][system[i].index("z") + 1:system[i].index("y")]
+                        elif system[i].index("x") < system[i].index("y") and system[i].index("z") < system[i].index("y") and system[i].index("x") > system[i].index("z"):
+                            a = system[i][system[i].index("x") + 1:system[i].index("y")]
+                        if a == "+":
+                            matrix[i].append(1)
+                        elif a == "-":
+                            matrix[i].append(-1)
                         else:
-                            matrix[i].append(int(a))
-                    if system[i].index("z") < system[i].index("x") and system[i].index("z") < system[i].index("y"):
-                        a = system[i][:system[i].index("z")]
-                    elif system[i].index("x") < system[i].index("z") < system[i].index("y"):
-                        a = system[i][system[i].index("x") + 1:system[i].index("z")]
-                    elif system[i].index("y") < system[i].index("z") < system[i].index("x"):
-                        a = system[i][system[i].index("y") + 1:system[i].index("z")]
-                    elif system[i].index("x") < system[i].index("z") and system[i].index("y") < system[i].index("z") and system[i].index("x") < system[i].index("y"):
-                        a = system[i][system[i].index("y") + 1:system[i].index("z")]
-                    elif system[i].index("x") < system[i].index("z") and system[i].index("y") < system[i].index("z") and system[i].index("x") > system[i].index("y"):
-                        a = system[i][system[i].index("x") + 1:system[i].index("z")]
-                    if a == "+" or a=="":
-                        matrix[i].append(1)
-                    elif a == "-":
-                        matrix[i].append(-1)
-                    else:
-                        if a != "+" and "+" in a:
-                            matrix[i].append(int(a[1:]))
-                        elif a != "-" and "-" in a:
-                            matrix[i].append(int(a))
+                            if a != "+" and "+" in a:
+                                matrix[i].append(int(a[1:]))
+                            elif a != "-" and "-" in a:
+                                matrix[i].append(int(a))
+                            else:
+                                matrix[i].append(int(a))
+                        if system[i].index("z") < system[i].index("x") and system[i].index("z") < system[i].index("y"):
+                            a = system[i][:system[i].index("z")]
+                        elif system[i].index("x") < system[i].index("z") < system[i].index("y"):
+                            a = system[i][system[i].index("x") + 1:system[i].index("z")]
+                        elif system[i].index("y") < system[i].index("z") < system[i].index("x"):
+                            a = system[i][system[i].index("y") + 1:system[i].index("z")]
+                        elif system[i].index("x") < system[i].index("z") and system[i].index("y") < system[i].index("z") and system[i].index("x") < system[i].index("y"):
+                            a = system[i][system[i].index("y") + 1:system[i].index("z")]
+                        elif system[i].index("x") < system[i].index("z") and system[i].index("y") < system[i].index("z") and system[i].index("x") > system[i].index("y"):
+                            a = system[i][system[i].index("x") + 1:system[i].index("z")]
+                        if a == "+" or a=="":
+                            matrix[i].append(1)
+                        elif a == "-":
+                            matrix[i].append(-1)
                         else:
-                            matrix[i].append(int(a))
-        a = system[i][system[i].index("=") + 1:]
-        if "\r" in a:
-            matrix[i].append(int(a[:-1]))
-        else:
-            matrix[i].append(int(a))
-    return matrix
+                            if a != "+" and "+" in a:
+                                matrix[i].append(int(a[1:]))
+                            elif a != "-" and "-" in a:
+                                matrix[i].append(int(a))
+                            else:
+                                matrix[i].append(int(a))
+            a = system[i][system[i].index("=") + 1:]
+            if "\r" in a:
+                matrix[i].append(int(a[:-1]))
+            else:
+                matrix[i].append(int(a))
+        return matrix
+    except:
+        return "ERROR"
 
 def kramer_2(matrix):
     matrix_delt = [matrix[0][:2], matrix[1][:2]]
