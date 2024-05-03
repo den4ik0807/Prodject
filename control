@@ -18,12 +18,13 @@ def kramer(system):
 
 def matrix(system):
     try:
-        return model.matrix_method(model.matrix_3(system))
+        return model.matrix_method(model.matrix_3(system.split()))
     except:
         return "ERROR"
 
 def funk(system):
     try:
+        print(view.funk(model.answer_kramer(system)[-1], model.answer_kramer(system)[-2], model.answer_kramer(system)[-4],model.answer_kramer(system)[-3]))
         return view.funk(model.answer_kramer(system)[-1],model.answer_kramer(system)[-2],model.answer_kramer(system)[-4], model.answer_kramer(system)[-3])
     except:
         return "ERROR"
