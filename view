@@ -1,20 +1,25 @@
-import flet as ft
+def funk(graf1, graf2, x, y):
+    list1=[]
+    list2=[]
+    listx=[]
+    listy=[]
+    print(graf1)
+    print(graf2)
+    print(x)
+    for i in range(int(x)-5,int(x)+5):
+        listx.append(i)
+        print(graf1[:graf1.index("x")] + str(i) + graf1[graf1.index("x") + 1:])
+        print(graf2[:graf2.index("x")] + str(i) + graf2[graf2.index("x") + 1:])
+        print(i)
+        list1.append(eval(graf1[:graf1.index("x")] + str(i) + graf1[graf1.index("x") + 1:]))
+        list2.append(eval(graf2[:graf2.index("x")] + str(i) + graf2[graf2.index("x") + 1:]))
+    for i in range(int(y)-5,int(y)+5):
+        listy.append(i)
+    return list1, list2, listx, listy
 
-b=[]
-new_task=[]
 
-
-
-def main(page: ft.Page):
-    sistem = ft.TextField(label="Введите сюда систему:", multiline = True, min_lines = 1, max_lines = 3)
-    page.add(ft.Row([sistem, ft.ElevatedButton("Enter")]))
-
-ft.app(target=main)
-#
-# 5x-y-z=0
-# x+2y+3z=14
-# 4x+3y+2z=16
-#
-# 3x-2y+4z=21
-# 3x+4y-2z=9
-# 2x-y-z=1
+def calcul(kramer,matrix):
+    if kramer[-3]==matrix[-3] and kramer[-2]==matrix[-2] and kramer[-1]==matrix[-1]:
+        return [f"X = {kramer[-9]} / {kramer[-10]} = {kramer[-3]}", f"Y = {kramer[-8]} / {kramer[-10]} = {kramer[-2]}", f"Z = {kramer[-7]} / {kramer[-10]} = {kramer[-1]}"]
+    else:
+        return "Sorry, the answers of the Kramer method and the matrix method do not match(. Check each method separately."
