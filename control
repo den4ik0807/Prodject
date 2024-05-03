@@ -3,10 +3,13 @@ import model
 
 
 def just_answer(system):
-    try:
-        return view.calcul(model.answer_kramer(system),model.matrix_method(model.matrix_3(system)))
-    except:
-        return "ERROR"
+    if "z" in system:
+        try:
+            return view.calcul(model.answer_kramer(system),model.matrix_method(model.matrix_3(system)))
+        except:
+            return "ERROR"
+    else:
+        return model.answer_kramer(system)[-5],model.answer_kramer(system)[-4]
 
 
 def kramer(system):
@@ -24,7 +27,6 @@ def matrix(system):
 
 def funk(system):
     try:
-        print(view.funk(model.answer_kramer(system)[-1], model.answer_kramer(system)[-2], model.answer_kramer(system)[-4],model.answer_kramer(system)[-3]))
         return view.funk(model.answer_kramer(system)[-1],model.answer_kramer(system)[-2],model.answer_kramer(system)[-4], model.answer_kramer(system)[-3])
     except:
         return "ERROR"
