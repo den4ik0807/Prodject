@@ -5,11 +5,11 @@ import model
 def just_answer(system):
     if "z" in system:
         try:
-            return view.calcul(model.answer_kramer(system),model.matrix_method(model.matrix_3(system)))
+            return view.calcul(model.answer_kramer(system),model.matrix_method(model.matrix_3(system.split())))
         except:
             return "ERROR"
     else:
-        return model.answer_kramer(system)[-5],model.answer_kramer(system)[-4]
+        return model.answer_kramer(system)[-6],model.answer_kramer(system)[-5]
 
 
 def kramer(system):
