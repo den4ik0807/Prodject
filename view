@@ -22,4 +22,7 @@ def calcul(kramer,matrix):
     if kramer[-3]==matrix[-3] and kramer[-2]==matrix[-2] and kramer[-1]==matrix[-1]:
         return [f"X = {kramer[-9]} / {kramer[-10]} = {kramer[-3]}", f"Y = {kramer[-8]} / {kramer[-10]} = {kramer[-2]}", f"Z = {kramer[-7]} / {kramer[-10]} = {kramer[-1]}"]
     else:
+        print(kramer[-3],matrix[-3])
+        print(kramer[-2], matrix[-2])
+        print(kramer[-1], matrix[-1])
         return "Sorry, the answers of the Kramer method and the matrix method do not match(. Check each method separately."
