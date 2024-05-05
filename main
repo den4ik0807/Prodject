@@ -1,0 +1,92 @@
+import flet as ft
+import matplotlib.pyplot as plt
+from flet.matplotlib_chart import MatplotlibChart
+
+import control
+
+
+def main(page: ft.Page):
+    page.title = "Решение систем матричным методом"
+
+    def clic(e):
+        if drop_down.value=="Метод Крамера":
+            if "x" in text_fild.value:
+                if "z" in text_fild.value:
+                    a = ""
+                    for i in control.kramer(text_fild.value)[:-3]:
+                        a = a + "\n" + str(i)
+                else:
+                    a=""
+                    for i in control.kramer(text_fild.value)[:-4]:
+                        a=a+"\n"+str(i)
+                text = ft.Text(a)
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+            else:
+                text = ft.Text("Введите систему")
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+        elif drop_down.value=="Просто ответ":
+            if "x" in text_fild.value:
+                a=""
+                for i in control.just_answer(text_fild.value):
+                    a=a+"\n"+str(i)
+                text = ft.Text(a)
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+            else:
+                text = ft.Text("Введите систему")
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+        elif drop_down.value=="Матричный метод":
+            if "z" in text_fild.value:
+                a = ""
+                for i in control.matrix(text_fild.value)[:-3]:
+                    a = a + "\n" + str(i)
+                text = ft.Text(a)
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+            elif "x" in text_fild.value:
+                text = ft.Text("Матричный метод только для матриц 3 порядка")
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+            else:
+                text = ft.Text("Введите систему")
+                page.controls.clear()
+                page.add(ft.Column(controls=[Calculate, text]))
+        else:
+            text=ft.Text("Выберите метод")
+            page.controls.clear()
+            page.add(ft.Column(controls=[Calculate,text]))
+
+    drop_down = ft.Dropdown(width=180,options=[ft.dropdown.Option("Метод Крамера"),ft.dropdown.Option("Матричный метод"),ft.dropdown.Option("Просто ответ")])
+    text_fild = ft.TextField(label="Введите сюда систему 2 или 3 порядка:", multiline = True, min_lines = 1, max_lines = 3, width=350)
+    but = ft.IconButton(icon=ft.icons.ARROW_DROP_DOWN_OUTLINED, on_click=clic)
+    Calculate = ft.Row(controls=[drop_down,text_fild,but])
+    def nav_funk(e):
+        page.controls.clear()
+        nav_dest = e.control.selected_index
+
+        if nav_dest == 0:
+            page.add(Calculate)
+
+        if nav_dest == 1:
+            if "z" not  in text_fild.value and "x" in text_fild.value:
+                y1, y2,x, y = control.funk(text_fild.value)
+
+                fig, ax = plt.subplots()
+                ax.plot(x, y1, label="1 функция")
+                ax.plot(x, y2, label="2 функция")
+                ax.set_xlim(min(x),max(x))
+                ax.set_ylim(min(y),max(y))
+                ax.grid(True)
+                ax.legend()
+                page.add(MatplotlibChart(fig, expand=True))
+            else:
+                page.add(ft.Text("Функции только для матриц 2 порядка"))
+
+
+    page.navigation_bar = ft.NavigationBar(destinations=[ft.NavigationDestination(icon=ft.icons.CALCULATE, label="Вычисления"),ft.NavigationDestination(icon=ft.icons.BAR_CHART, label="Функции")], on_change=nav_funk)
+    page.add(Calculate)
+
+ft.app(main)
