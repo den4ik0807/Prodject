@@ -418,3 +418,26 @@ def matrix_method(matrix):
             return ["It is impossible to do it using the matrix method. Because the delta is zero", matrix_delt, delt_tr_dp, delt_num]
     except:
         return "ERROR"
+
+def add_data_to_file(matrix):
+    data=pd.DataFrame({"X":[matrix[0][0], matrix[1][0]], "Y":[matrix[0][1], matrix[1][1]], "Свободные коэффициенты":[matrix[0][2], matrix[1][2]]})
+    if not os.path.exists('Systems.excel'):
+        open('Systems.excel', 'w').close()
+    else:
+        try:
+            df = pd.read_excel('Systems.excel')
+            new_df = pd.concat([df, data], ignore_index=True)
+            new_df.to_excel('Systems.excel', index=False)
+        except:
+            print('ERROR')
+
+
+def read_data_excel():
+    return pd.read_excel('Systems.excel').values.tolist()
+
+
+def del_excel():
+    try:
+        pd.concat("", ignore_index=True).to_excel('Systems.excel', index=False)
+    except:
+        print('ERROR')
