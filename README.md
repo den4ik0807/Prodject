@@ -10,3 +10,5 @@ There is also a graph of functions for matrices of the 2nd order:
 And also for those who just need an answer, there is such an option:
 ![Снимок экрана (125)](https://github.com/den4ik0807/Prodject/assets/148674815/46629615-e04a-4c5e-8267-1cf30d8a7e3e)
 ![Снимок экрана (129)](https://github.com/den4ik0807/Prodject/assets/148674815/df7efcfa-21b1-46b5-8524-da4be93c11e9)
+Also, all matrices are automatically saved there in an exel file:
+![Снимок экрана (130)](https://github.com/den4ik0807/Prodject/assets/148674815/f40a028e-70d6-42f6-91cb-b4c922eb0164)
