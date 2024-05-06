@@ -1,3 +1,7 @@
+import pandas as pd
+import os
+
+
 def matrix_2(system):
     try:
         matrix = []
