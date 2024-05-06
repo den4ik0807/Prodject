@@ -412,7 +412,7 @@ def matrix_method(matrix):
                  f"y = d21 / delta = {d21} / {delt_num} = {y}",
                  f"z = d31 / delta = {d31} / {delt_num} = {z}"
                 ]
-            return ["Матрица:",matrix, "Опредилитель:",matrix_delt,delt_tr_dp, "Матрица свободных коофициентов:",A, "Элементы матрицы A^*:",'\n'.join(''.join(map(str, row)) for row in B), "A^*:", '\n'.join(' '.join(map(str, row)) for row in C),"(A^*)^T:", '\n'.join(' '.join(map(str, row)) for row in D), "Матрица свободных коофициентов * на (A^*)^T:",'\n'.join(''.join(map(str, row)) for row in E), '\n'.join(''.join(map(str, row)) for row in F), x,y,z]
+            return ["Матрица:",'\n'.join('  '.join(map(str, row)) for row in matrix), "Опредилитель:",'\n'.join('  '.join(map(str, row)) for row in matrix_delt),delt_tr_dp, "Матрица свободных коофициентов:",A, "Элементы матрицы A^*:",'\n'.join(''.join(map(str, row)) for row in B), "A^*:", '\n'.join(' '.join(map(str, row)) for row in C),"(A^*)^T:", '\n'.join(' '.join(map(str, row)) for row in D), "Матрица свободных коофициентов * на (A^*)^T:",'\n'.join(''.join(map(str, row)) for row in E), '\n'.join(''.join(map(str, row)) for row in F), x,y,z]
 
         else:
             return ["It is impossible to do it using the matrix method. Because the delta is zero", matrix_delt, delt_tr_dp, delt_num]
