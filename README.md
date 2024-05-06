@@ -8,7 +8,7 @@ The project also has a solution of systems using the Kramer method:
 
 So are the solutions by the Matrix method:
 
-![Снимок экрана (124)](https://github.com/den4ik0807/Prodject/assets/148674815/62503cba-573a-4d6b-888f-b66a04230071)
+![Снимок экрана (131)](https://github.com/den4ik0807/Prodject/assets/148674815/b0b25bd8-c38e-4e1c-bcd0-197432542222)
 
 There is also a graph of functions for matrices of the 2nd order:
 
